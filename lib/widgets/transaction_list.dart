@@ -30,7 +30,7 @@ class TransactionList extends StatelessWidget {
                 child: Text(
                   // 'A:' + tx.amount.toString(),
                   //'${tx.amount}',
-                  '\$${tx.amount}',
+                  '\₹ ${tx.amount}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
