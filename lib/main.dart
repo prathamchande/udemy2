@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import './transaction.dart';
+import 'package:intl/intl.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Flutter App',
       home: MyHomePage(),
     );
@@ -15,8 +15,20 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
+  final List<Transaction> transactions = [
+    Transaction(
+      id: 't1',
+      title: 'new shoe',
+      amount: 60,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'wekkly cloth',
+      amount: 50,
+      date: DateTime.now(),
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,8 +67,67 @@ class MyHomePage extends StatelessWidget {
             //   width: double.infinity,
             child: Text('chart'),
           ),
-          const Card(
-            child: Text('chart2'),
+          // const Card(
+          //   child: Text('chart2'),
+          // ),
+          // Column(children: <Widget>[
+          //   Card(),
+          //   Card(),
+          // ],
+          Column(
+            children: transactions.map((tx) {
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 15,
+                      ),
+                      padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                        color: Colors.purple,
+                        width: 2,
+                      )),
+                      //amount
+                      child: Text(
+                        // 'A:' + tx.amount.toString(),
+                        //'${tx.amount}',
+                        '\$${tx.amount}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.purple,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          tx.title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Text(
+                          // DateFormat('dd-MM-yyyy').format(tx.date),
+                          DateFormat.yMMMEd().format(tx.date),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
